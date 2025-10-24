@@ -7,7 +7,7 @@ outputs:
   - {name: Updated Message Path, type: String, description: 'Path to updated JSON output'}
 implementation:
   container:
-    image: ghcr.io/example/evaluate-component:0.1.0
+    image: quay.io/bgallagher/evaluate-kfp-component:0.1.0
     command: ['python']
     args: [
       -u, evaluate.py,
