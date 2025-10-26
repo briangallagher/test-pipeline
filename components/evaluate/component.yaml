@@ -7,7 +7,7 @@ outputs:
   - {name: Updated Message Path, type: String, description: 'Path to updated JSON output'}
 implementation:
   container:
-    image: quay.io/bgallagher/evaluate-kfp-component:0.1.2
+    image: quay.io/bgallagher/evaluate-kfp-component:0.1.3
     command: ['python']
     args: [
       -u, evaluate.py,

@@ -28,8 +28,15 @@ def main():
 
     input_path = Path(args.input_message_path)
     output_path = Path(args.output_path)
-    artifacts_dir = Path("artifacts")
-    artifacts_dir.mkdir(parents=True, exist_ok=True)
+
+    # Prefer a writable location for artifacts (OpenShift/KFP pods often run with random UID)
+    artifacts_dir = Path(os.getenv("ARTIFACTS_DIR", "/tmp/artifacts"))
+    try:
+        artifacts_dir.mkdir(parents=True, exist_ok=True)
+    except PermissionError:
+        # Fallback to /tmp if a custom path was set but not writable
+        artifacts_dir = Path("/tmp/artifacts")
+        artifacts_dir.mkdir(parents=True, exist_ok=True)
     evaluated_copy_path = artifacts_dir / "evaluated_message.json"
 
     if not input_path.exists():
